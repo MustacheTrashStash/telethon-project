@@ -1,0 +1,28 @@
+# Medusa Server Mode Environment Variables
+# Copy these to your hosting provider's environment variable configuration
+
+# Security - GENERATE SECURE SECRETS FOR PRODUCTION
+COOKIE_SECRET=supersecret
+JWT_SECRET=supersecret
+
+# CORS Configuration - UPDATE THESE WITH YOUR ACTUAL URLS
+STORE_CORS=https://your-storefront-url.com
+ADMIN_CORS=https://your-medusa-server-url.com
+AUTH_CORS=https://your-storefront-url.com,https://your-medusa-server-url.com
+
+# Server Mode Configuration
+DISABLE_MEDUSA_ADMIN=false
+MEDUSA_WORKER_MODE=server
+PORT=9000
+
+# Database Configuration - REPLACE WITH YOUR ACTUAL CREDENTIALS
+DATABASE_URL=postgresql://username:password@your-db-host:25060/defaultdb?sslmode=require&sslrootcert=./certs/ca-certificate.crt
+REDIS_URL=rediss://default:password@your-redis-host:25061
+
+# Admin Backend URL - SET TO YOUR SERVER DEPLOYMENT URL
+MEDUSA_BACKEND_URL=https://your-medusa-server-url.com
+
+# Additional Configuration
+MEDUSA_ADMIN_ONBOARDING_TYPE=nextjs
+PUBLISHABLE_KEY=pk_c3b259c20bf1dc6a70598f7ac5343664dda23b3676fbccec3b5103a861dc4e4e
+MEDUSA_ADMIN_ONBOARDING_NEXTJS_DIRECTORY=telethon-storefront

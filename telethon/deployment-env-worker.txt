@@ -1,0 +1,18 @@
+# Medusa Worker Mode Environment Variables
+# Copy these to your hosting provider's environment variable configuration
+
+# Security - GENERATE SECURE SECRETS FOR PRODUCTION (SAME AS SERVER)
+COOKIE_SECRET=supersecret
+JWT_SECRET=supersecret
+
+# Worker Mode Configuration
+DISABLE_MEDUSA_ADMIN=true
+MEDUSA_WORKER_MODE=worker
+PORT=9000
+
+# Database Configuration - REPLACE WITH YOUR ACTUAL CREDENTIALS
+DATABASE_URL=postgresql://username:password@your-db-host:25060/defaultdb?sslmode=require&sslrootcert=./certs/ca-certificate.crt
+REDIS_URL=rediss://default:password@your-redis-host:25061
+
+# Additional Configuration
+PUBLISHABLE_KEY=pk_c3b259c20bf1dc6a70598f7ac5343664dda23b3676fbccec3b5103a861dc4e4e
