@@ -4,7 +4,7 @@ import { Modules } from "@medusajs/framework/utils"
 loadEnv(process.env.NODE_ENV || 'development', process.cwd())
 
 const isDev = process.env.NODE_ENV === 'development';
-const redisUrl = isDev ? undefined : process.env.REDIS_URL;
+const redisUrl = process.env.NODE_ENV === 'production' ? process.env.REDIS_URL : undefined;
 
 module.exports = defineConfig({
   projectConfig: {
@@ -24,30 +24,29 @@ module.exports = defineConfig({
     backendUrl: process.env.MEDUSA_BACKEND_URL,
   },
   modules: [
-    ...(isDev
-      ? [] // Skip Redis modules in development mode
-      : [
-          {
-            resolve: "@medusajs/medusa/cache-redis",
-            options: {
-              redisUrl: redisUrl,
-            },
+    // Only include Redis modules in production
+    ...(process.env.NODE_ENV === 'production' ? [
+      {
+        resolve: "@medusajs/medusa/cache-redis",
+        options: {
+          redisUrl: process.env.REDIS_URL,
+        },
+      },
+      {
+        resolve: "@medusajs/medusa/event-bus-redis",
+        options: {
+          redisUrl: process.env.REDIS_URL,
+        },
+      },
+      {
+        resolve: "@medusajs/medusa/workflow-engine-redis",
+        options: {
+          redis: {
+            url: process.env.REDIS_URL,
           },
-          {
-            resolve: "@medusajs/medusa/event-bus-redis",
-            options: {
-              redisUrl: redisUrl,
-            },
-          },
-          {
-            resolve: "@medusajs/medusa/workflow-engine-redis",
-            options: {
-              redis: {
-                url: redisUrl,
-              },
-            },
-          },
-        ]),
+        },
+      },
+    ] : []),
     {
       resolve: "@medusajs/medusa/payment",
       options: {
@@ -58,6 +57,17 @@ module.exports = defineConfig({
             options: {
               apiKey: process.env.STRIPE_API_KEY,
             },
+          },
+        ],
+      },
+    },
+    {
+      resolve: "@medusajs/medusa/auth",
+      options: {
+        providers: [
+          {
+            resolve: "@medusajs/medusa/auth-emailpass",
+            id: "emailpass",
           },
         ],
       },
