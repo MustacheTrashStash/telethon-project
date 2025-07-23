@@ -25,7 +25,11 @@ export default async function Nav() {
               className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
               data-testid="nav-store-link"
             >
-              Medusa Store
+              <img
+                src="/CCTV telethon Logo.png"
+                alt="CCTV Telethon Logo"
+                className="h-10"
+              />
             </LocalizedClientLink>
           </div>
 
