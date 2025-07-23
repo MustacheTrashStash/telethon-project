@@ -73,4 +73,13 @@ module.exports = defineConfig({
       },
     },
   ],
+  plugins: [
+    {
+      resolve: "@medusajs/file-local",
+      options: {
+        upload_dir: "static",
+        base_url: process.env.MEDUSA_BACKEND_URL ? `${process.env.MEDUSA_BACKEND_URL}/static` : "http://localhost:9000/static",
+      },
+    },
+  ],
 });
