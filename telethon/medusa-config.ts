@@ -1,7 +1,7 @@
-import { loadEnv, defineConfig } from '@medusajs/framework/utils'
-import { Modules } from "@medusajs/framework/utils"
+import { loadEnv, defineConfig } from '@medusajs/framework/utils';
+import { Modules } from "@medusajs/framework/utils";
 
-loadEnv(process.env.NODE_ENV || 'development', process.cwd())
+loadEnv(process.env.NODE_ENV || 'development', process.cwd());
 
 const isDev = process.env.NODE_ENV === 'development';
 const redisUrl = process.env.NODE_ENV === 'production' ? process.env.REDIS_URL : undefined;
@@ -9,7 +9,7 @@ const redisUrl = process.env.NODE_ENV === 'production' ? process.env.REDIS_URL :
 module.exports = defineConfig({
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
-    redisUrl: redisUrl,
+    redisUrl: process.env.NODE_ENV === 'production' ? process.env.REDIS_URL : undefined,
     workerMode: process.env.MEDUSA_WORKER_MODE as "shared" | "worker" | "server",
     http: {
       storeCors: process.env.STORE_CORS!,
@@ -73,4 +73,4 @@ module.exports = defineConfig({
       },
     },
   ],
-})
+});
