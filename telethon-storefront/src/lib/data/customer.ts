@@ -17,30 +17,8 @@ import {
 
 export const retrieveCustomer =
   async (): Promise<HttpTypes.StoreCustomer | null> => {
-    const authHeaders = await getAuthHeaders()
-
-    if (!authHeaders) return null
-
-    const headers = {
-      ...authHeaders,
-    }
-
-    const next = {
-      ...(await getCacheOptions("customers")),
-    }
-
-    return await sdk.client
-      .fetch<{ customer: HttpTypes.StoreCustomer }>(`/store/customers/me`, {
-        method: "GET",
-        query: {
-          fields: "*orders",
-        },
-        headers,
-        next,
-        cache: "force-cache",
-      })
-      .then(({ customer }) => customer)
-      .catch(() => null)
+    // Always return null to disable customer functionality - guest checkout only
+    return null
   }
 
 export const updateCustomer = async (body: HttpTypes.StoreUpdateCustomer) => {
