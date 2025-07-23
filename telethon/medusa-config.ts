@@ -6,7 +6,7 @@ loadEnv(process.env.NODE_ENV || 'development', process.cwd())
 module.exports = defineConfig({
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
-    redisUrl: process.env.REDIS_URL,
+    redisUrl: process.env.NODE_ENV === 'production' ? process.env.REDIS_URL : undefined,
     workerMode: process.env.MEDUSA_WORKER_MODE as "shared" | "worker" | "server",
     http: {
       storeCors: process.env.STORE_CORS!,
@@ -21,26 +21,29 @@ module.exports = defineConfig({
     backendUrl: process.env.MEDUSA_BACKEND_URL,
   },
   modules: [
-    {
-      resolve: "@medusajs/medusa/cache-redis",
-      options: {
-        redisUrl: process.env.REDIS_URL,
-      },
-    },
-    {
-      resolve: "@medusajs/medusa/event-bus-redis",
-      options: {
-        redisUrl: process.env.REDIS_URL,
-      },
-    },
-    {
-      resolve: "@medusajs/medusa/workflow-engine-redis",
-      options: {
-        redis: {
-          url: process.env.REDIS_URL,
+    // Only include Redis modules in production
+    ...(process.env.NODE_ENV === 'production' ? [
+      {
+        resolve: "@medusajs/medusa/cache-redis",
+        options: {
+          redisUrl: process.env.REDIS_URL,
         },
       },
-    },
+      {
+        resolve: "@medusajs/medusa/event-bus-redis",
+        options: {
+          redisUrl: process.env.REDIS_URL,
+        },
+      },
+      {
+        resolve: "@medusajs/medusa/workflow-engine-redis",
+        options: {
+          redis: {
+            url: process.env.REDIS_URL,
+          },
+        },
+      },
+    ] : []),
     {
       resolve: "@medusajs/medusa/payment",
       options: {
@@ -51,6 +54,17 @@ module.exports = defineConfig({
             options: {
               apiKey: process.env.STRIPE_API_KEY,
             },
+          },
+        ],
+      },
+    },
+    {
+      resolve: "@medusajs/medusa/auth",
+      options: {
+        providers: [
+          {
+            resolve: "@medusajs/medusa/auth-emailpass",
+            id: "emailpass",
           },
         ],
       },
