@@ -21,12 +21,12 @@ export async function generateStaticParams() {
     if (!product_categories) {
       return []
     }
+    // Only use categories with a valid, non-empty handle
+    const validCategories = product_categories.filter((c: any) => typeof c.handle === 'string' && c.handle.trim().length > 0)
     const countryCodes = await listRegions().then((regions: StoreRegion[]) =>
       regions?.map((r) => r.countries?.map((c) => c.iso_2)).flat()
     )
-    const categoryHandles = product_categories.map(
-      (category: any) => category.handle
-    )
+    const categoryHandles = validCategories.map((category: any) => category.handle)
     const staticParams = countryCodes
       ?.map((countryCode: string | undefined) =>
         categoryHandles.map((handle: any) => ({
@@ -46,6 +46,15 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
   if (!params || !params.category) {
     console.error("[category page] params or params.category is undefined", { params })
+    notFound()
+  }
+  // Skip if category param is empty or invalid
+  if (Array.isArray(params.category) && params.category.length === 0) {
+    console.error("[category page] params.category is empty array", { category: params.category })
+    notFound()
+  }
+  if (typeof params.category === 'string' && (params.category as string).length === 0) {
+    console.error("[category page] params.category is empty string", { category: params.category })
     notFound()
   }
   try {
@@ -86,6 +95,15 @@ export default async function CategoryPage(props: Props) {
 
   if (!params || !params.category) {
     console.error("[category page] params or params.category is undefined", { params })
+    notFound()
+  }
+  // Skip if category param is empty or invalid
+  if (Array.isArray(params.category) && params.category.length === 0) {
+    console.error("[category page] params.category is empty array", { category: params.category })
+    notFound()
+  }
+  if (typeof params.category === 'string' && (params.category as string).length === 0) {
+    console.error("[category page] params.category is empty string", { category: params.category })
     notFound()
   }
   if (typeof params.category !== "string" && !Array.isArray(params.category)) {
