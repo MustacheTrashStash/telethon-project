@@ -15,7 +15,7 @@ export const listCategories = async (query?: Record<string, any>) => {
       {
         query: {
           fields:
-            "*category_children, *products, *parent_category, *parent_category.parent_category",
+            "*category_children, *parent_category, *parent_category.parent_category, products.id,products.title,products.handle,products.thumbnail,products.images,products.variants.id,products.variants.title,products.variants.inventory_quantity,products.variants.manage_inventory,products.variants.allow_backorder,products.variants.calculated_price,products.metadata,products.tags",
           limit,
           ...query,
         },

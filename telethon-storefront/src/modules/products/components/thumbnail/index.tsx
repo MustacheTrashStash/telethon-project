@@ -13,8 +13,29 @@ type ThumbnailProps = {
   name?: string
   className?: string
   "data-testid"?: string
+  inventory?: number
+  price?: string | number
 }
 
+type ImageOrPlaceholderProps = Pick<ThumbnailProps, "size"> & { image?: string, filter?: string }
+const ImageOrPlaceholder = ({ image, size, filter }: ImageOrPlaceholderProps) => {
+  return image ? (
+    <Image
+      src={image}
+      alt="Thumbnail"
+      className="absolute inset-0 object-cover object-center !rounded-none"
+      draggable={false}
+      quality={50}
+      sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
+      fill
+      style={filter ? { filter } : undefined}
+    />
+  ) : (
+    <div className="w-full h-full absolute inset-0 flex items-center justify-center">
+      <PlaceholderImage size={size === "small" ? 16 : 24} />
+    </div>
+  )
+}
 const Thumbnail: React.FC<ThumbnailProps> = ({
   thumbnail,
   images,
@@ -22,10 +43,12 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
   isFeatured,
   name,
   className,
+  inventory,
+  price,
   "data-testid": dataTestid,
 }) => {
-  const initialImage = thumbnail || images?.[0]?.url
-
+  const initialImage = thumbnail || images?.[0]?.url;
+  const isSoldOut = typeof inventory === 'number' && inventory <= 0;
   return (
     <Container
       className={clx(
@@ -48,50 +71,47 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
       data-testid={dataTestid}
     >
       <div className="absolute inset-0 w-full h-full">
-        <ImageOrPlaceholder image={initialImage} size={size} />
-        <div
-          className="absolute left-0 right-0 bottom-0"
-          style={{
-            fontFamily: 'Montserrat, sans-serif',
-            fontSize: '14px',
-            fontWeight: 900,
-            height: '32px',
-            background: '#fff',
-            padding: '5px 12px',
-            color: '#000',
-            borderTop: '3px solid #000',
-            borderBottom: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-          }}
-        >
-          {name || 'Item Name'}
+        <div style={{ width: '100%', height: '100%' }}>
+          <ImageOrPlaceholder image={initialImage} size={size} filter={isSoldOut ? 'grayscale(1) brightness(0.4)' : undefined} />
         </div>
+        {size !== "small" && (
+          <div
+            className="absolute left-0 right-0 bottom-0"
+            style={{
+              fontFamily: 'Montserrat, sans-serif',
+              fontSize: '14px',
+              fontWeight: 900,
+              height: '32px',
+              background: '#fff',
+              padding: '5px 12px',
+              color: isSoldOut ? '#888' : '#000',
+              borderTop: '3px solid #000',
+              borderBottom: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              textDecoration: isSoldOut ? 'line-through' : 'none',
+            }}
+          >
+            <span style={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1, textAlign: 'left', paddingRight: 8}}>{name || 'Item Name'}</span>
+            <span style={{
+              color: isSoldOut ? '#d32f2f' : '#1DA29A',
+              fontWeight: 700,
+              textDecoration: 'none',
+              flexShrink: 0,
+              minWidth: 0,
+              textAlign: 'right',
+              paddingLeft: 8,
+              paddingRight: 0
+            }}>
+              {isSoldOut ? 'Sold out' : (price ? price : '')}
+            </span>
+          </div>
+        )}
       </div>
     </Container>
   )
 }
-
-const ImageOrPlaceholder = ({
-  image,
-  size,
-}: Pick<ThumbnailProps, "size"> & { image?: string }) => {
-  return image ? (
-    <Image
-      src={image}
-      alt="Thumbnail"
-      className="absolute inset-0 object-cover object-center !rounded-none"
-      draggable={false}
-      quality={50}
-      sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
-      fill
-    />
-  ) : (
-    <div className="w-full h-full absolute inset-0 flex items-center justify-center">
-      <PlaceholderImage size={size === "small" ? 16 : 24} />
-    </div>
-  )
-}
+// (ImageOrPlaceholder already defined above)
 
 export default Thumbnail
