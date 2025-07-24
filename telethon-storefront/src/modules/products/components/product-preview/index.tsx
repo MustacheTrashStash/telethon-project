@@ -22,11 +22,13 @@ export default async function ProductPreview({
   const { cheapestPrice } = getProductPrice({ product });
   // Determine if all variants are out of stock
   const allVariants = product.variants || [];
-  const hasInventory = allVariants.some(
+  // Only mark as sold out if every variant is managed, not backorderable, and has 0 or less inventory
+  const isSoldOut = allVariants.length > 0 && allVariants.every(
     (v) =>
-      (!v.manage_inventory || v.allow_backorder) || (typeof v.inventory_quantity === 'number' && v.inventory_quantity > 0)
+      v.manage_inventory !== false &&
+      v.allow_backorder !== true &&
+      (typeof v.inventory_quantity !== 'number' || v.inventory_quantity <= 0)
   );
-  const isSoldOut = !hasInventory;
   return (
     <LocalizedClientLink href={`/products/${product.handle}`} className="group">
       <div data-testid="product-wrapper" className="relative">
@@ -40,14 +42,7 @@ export default async function ProductPreview({
             inventory={isSoldOut ? 0 : 1}
           />
         </div>
-        {/* Price badge styled like a button, outside the image, only if not sold out */}
-        {cheapestPrice?.calculated_price && !isSoldOut && (
-          <div className="mt-2 flex justify-end">
-            <span className="border-2 border-[#1DA29A] bg-white text-[#1DA29A] text-xs font-bold px-3 py-1 rounded-lg shadow-md">
-              {cheapestPrice.calculated_price}
-            </span>
-          </div>
-        )}
+
       </div>
     </LocalizedClientLink>
   )
