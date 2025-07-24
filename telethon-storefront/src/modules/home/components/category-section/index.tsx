@@ -20,28 +20,39 @@ export default function CategorySection({ category, region }: CategorySectionPro
         <div className="w-full h-px bg-ui-border-base"></div>
       </div>
 
-      {/* Products Grid or No Products Message */}
+      {/* Products Horizontal Scroll or No Products Message */}
       {products.length > 0 ? (
         <>
-          <div className="grid grid-cols-1 small:grid-cols-2 medium:grid-cols-3 large:grid-cols-4 gap-6">
-            {products.map((product) => {
-              return (
-                <ProductPreview
-                  key={product.id}
-                  product={product}
-                  region={region}
-                  isFeatured
-                />
-              )
-            })}
+          {/* Horizontal Scrolling Container */}
+          <div className="relative">
+            <div className="flex overflow-x-auto no-scrollbar gap-4 pb-4 -mx-4 px-4 scroll-smooth">
+              {products.map((product) => {
+                return (
+                  <div key={product.id} className="flex-none w-64 sm:w-72">
+                    <ProductPreview
+                      product={product}
+                      region={region}
+                      isFeatured
+                    />
+                  </div>
+                )
+              })}
+            </div>
+            
+            {/* Scroll Indicator - only show if more than 4 items */}
+            {products.length > 4 && (
+              <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent pointer-events-none flex items-center justify-end pr-2">
+                <div className="text-ui-fg-subtle text-xs">→</div>
+              </div>
+            )}
           </div>
 
           {/* View All Link */}
-          {products.length > 8 && (
-            <div className="mt-8 text-center">
+          {products.length > 6 && (
+            <div className="mt-4 text-center">
               <a
                 href={`/categories/${category.handle}`}
-                className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
+                className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover text-sm"
               >
                 View all {category.name} products ({products.length})
               </a>

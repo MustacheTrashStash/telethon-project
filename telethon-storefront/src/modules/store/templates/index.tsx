@@ -21,33 +21,35 @@ const StoreTemplate = async ({
   }
 
   return (
-    <div className="py-6 content-container" data-testid="store-container">
-      <div className="mb-8">
-        <h1 className="text-3xl-regular" data-testid="store-page-title">
-          All Products
-        </h1>
-        <p className="text-ui-fg-subtle mt-2">
-          Browse our collection organized by category
-        </p>
-      </div>
+    <div className="bg-white min-h-screen">
+      <div className="py-6 content-container" data-testid="store-container">
+        <div className="mb-8">
+          <h1 className="text-3xl-regular" data-testid="store-page-title">
+            All Products
+          </h1>
+          <p className="text-ui-fg-subtle mt-2">
+            Browse our collection organized by category
+          </p>
+        </div>
 
-      <Suspense fallback={<SkeletonProductGrid />}>
-        {categories && categories.length > 0 ? (
-          <div>
-            {categories.map((category) => (
-              <CategorySection
-                key={category.id}
-                category={category}
-                region={region}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <p className="text-ui-fg-subtle">No products available yet.</p>
-          </div>
-        )}
-      </Suspense>
+        <Suspense fallback={<SkeletonProductGrid />}>
+          {categories && categories.length > 0 ? (
+            <div>
+              {categories.map((category) => (
+                <CategorySection
+                  key={category.id}
+                  category={category}
+                  region={region}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-ui-fg-subtle">No products available yet.</p>
+            </div>
+          )}
+        </Suspense>
+      </div>
     </div>
   )
 }
