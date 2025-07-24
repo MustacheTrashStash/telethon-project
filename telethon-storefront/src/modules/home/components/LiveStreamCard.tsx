@@ -65,7 +65,7 @@ const LiveStreamCard = () => {
           margin:0,
           width:"100%",
           height:"30em"
-        }} src="https://www.youtube.com/embed/s7nOhdDJzp8?si=v0etiXPcJAaiD6m0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        }} src="https://www.youtube.com/embed/jmZnc7eFR9Q?list=PLljLFn4BZd2PL7Z6x2egbcjWr0ib3gnaQ&index=3" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
       </div>
     </div>
@@ -73,3 +73,4 @@ const LiveStreamCard = () => {
 };
 
 export default LiveStreamCard;
+
