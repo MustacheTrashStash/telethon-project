@@ -44,8 +44,20 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
+  if (!params || !params.category) {
+    console.error("[category page] params or params.category is undefined", { params })
+    notFound()
+  }
   try {
+    if (typeof params.category !== "string" && !Array.isArray(params.category)) {
+      console.error("[category page] params.category is not string or array", { category: params.category })
+      notFound()
+    }
     const productCategory = await getCategoryByHandle(params.category || [])
+    if (!productCategory) {
+      console.error("[category page] getCategoryByHandle returned null", { category: params.category })
+      notFound()
+    }
     const title = productCategory?.name ? productCategory.name + " | Medusa Store" : "Category | Medusa Store"
     const description = productCategory?.description ?? `${title} category.`
     let canonical = ""
@@ -62,6 +74,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       },
     }
   } catch (error) {
+    console.error("[category page] generateMetadata error", error)
     notFound()
   }
 }
@@ -71,12 +84,19 @@ export default async function CategoryPage(props: Props) {
   const params = await props.params
   const { sortBy, page } = searchParams
 
-  const productCategory = await getCategoryByHandle(params.category || [])
-
-  if (!productCategory) {
+  if (!params || !params.category) {
+    console.error("[category page] params or params.category is undefined", { params })
     notFound()
   }
-
+  if (typeof params.category !== "string" && !Array.isArray(params.category)) {
+    console.error("[category page] params.category is not string or array", { category: params.category })
+    notFound()
+  }
+  const productCategory = await getCategoryByHandle(params.category || [])
+  if (!productCategory) {
+    console.error("[category page] getCategoryByHandle returned null", { category: params.category })
+    notFound()
+  }
   return (
     <CategoryTemplate
       category={productCategory}
