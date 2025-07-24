@@ -60,7 +60,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       title: `${title} | Medusa Store`,
       description,
       alternates: {
-        canonical: `${params.category.join("/")}`,
+        canonical: Array.isArray(params.category) ? params.category.join("/") : "",
       },
     }
   } catch (error) {
