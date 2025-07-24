@@ -26,8 +26,14 @@ export const listCategories = async (query?: Record<string, any>) => {
     .then(({ product_categories }) => product_categories)
 }
 
-export const getCategoryByHandle = async (categoryHandle: string[]) => {
-  const handle = `${categoryHandle.join("/")}`
+export const getCategoryByHandle = async (categoryHandle: string[] | string | undefined | null) => {
+  let handle = ""
+  if (Array.isArray(categoryHandle)) {
+    handle = categoryHandle.filter(Boolean).join("/")
+  } else if (typeof categoryHandle === "string") {
+    handle = categoryHandle
+  }
+  if (!handle) return null
 
   const next = {
     ...(await getCacheOptions("categories")),
@@ -45,5 +51,5 @@ export const getCategoryByHandle = async (categoryHandle: string[]) => {
         cache: "force-cache",
       }
     )
-    .then(({ product_categories }) => product_categories[0])
+    .then(({ product_categories }) => product_categories[0] || null)
 }
