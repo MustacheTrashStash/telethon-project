@@ -28,8 +28,8 @@ export default async function Nav() {
               <img
                 src="/CCTV telethon Logo.png"
                 alt="CCTV Telethon Logo"
-                className="h-20 md:h-28 -mt-4 md:-mt-8 drop-shadow-lg"
-                style={{ zIndex: 20 }}
+                className="h-20 md:h-28 mt-6 md:mt-10 drop-shadow-lg pointer-events-none"
+                style={{ zIndex: 20, position: 'relative' }}
               />
             </LocalizedClientLink>
           </div>

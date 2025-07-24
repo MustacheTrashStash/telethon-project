@@ -46,13 +46,19 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
   try {
     const productCategory = await getCategoryByHandle(params.category)
-    const title = productCategory.name + " | Medusa Store"
-    const description = productCategory.description ?? `${title} category.`
+    const title = productCategory?.name ? productCategory.name + " | Medusa Store" : "Category | Medusa Store"
+    const description = productCategory?.description ?? `${title} category.`
+    let canonical = ""
+    if (Array.isArray(params.category)) {
+      canonical = params.category.filter(Boolean).join("/")
+    } else if (typeof params.category === "string") {
+      canonical = params.category
+    }
     return {
       title: `${title} | Medusa Store`,
       description,
       alternates: {
-        canonical: Array.isArray(params.category) ? params.category.join("/") : "",
+        canonical,
       },
     }
   } catch (error) {
