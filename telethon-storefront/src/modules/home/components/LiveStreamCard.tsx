@@ -11,7 +11,7 @@ const LiveStreamCard = () => {
   const handleMouseOut = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.currentTarget;
     target.style.translate = "0";
-    target.style.boxShadow = "3px 3px 0 #000000";
+    target.style.boxShadow = "3px 3px 0 #00000022";
     target.style.background = "#4ade80";
   };
 
@@ -36,8 +36,8 @@ const LiveStreamCard = () => {
         height: "250px",
         translate: "-6px -6px",
         background: "#883377",
-        border: "3px solid #000000",
-        boxShadow: "12px 12px 0 #000000",
+        // border: "3px solid #000000",
+        boxShadow: "12px 12px 0 #00000022",
         overflow: "hidden",
         transition: "all 0.3s ease",
       }}
@@ -53,7 +53,7 @@ const LiveStreamCard = () => {
           background: "#ffffff",
           padding: "5px 12px",
           color: "#000000",
-          borderBottom: "3px solid #000000",
+          // borderBottom: "3px solid #000000",
         }}
       >
         Live Stream
