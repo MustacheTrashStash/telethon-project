@@ -3,12 +3,14 @@ import { Metadata } from "next"
 import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
 import { listCollections } from "@lib/data/collections"
+import { listCategories } from "@lib/data/categories"
 import { getRegion } from "@lib/data/regions"
+import CategorySection from "@modules/home/components/category-section"
 
 export const metadata: Metadata = {
-  title: "Medusa Next.js Starter Template",
+  title: "CCTV Archive Store",
   description:
-    "A performant frontend ecommerce starter template with Next.js 15 and Medusa.",
+    "Browse and support the digitization of CCTV's extensive video archive.",
 }
 
 export default async function Home(props: {
@@ -24,6 +26,10 @@ export default async function Home(props: {
     fields: "id, handle, title",
   })
 
+  const categories = await listCategories({
+    fields: "id, handle, name, products",
+  })
+
   if (!collections || !region) {
     return null
   }
@@ -32,9 +38,28 @@ export default async function Home(props: {
     <>
       <Hero />
       <div className="py-12">
-        <ul className="flex flex-col gap-x-6">
-          <FeaturedProducts collections={collections} region={region} />
-        </ul>
+        {/* Category Sections */}
+        {categories && categories.length > 0 && (
+          <div className="content-container">
+            <div className="mb-16">
+              <h2 className="text-3xl-regular mb-8">Browse by Category</h2>
+              {categories.map((category) => (
+                <CategorySection
+                  key={category.id}
+                  category={category}
+                  region={region}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+        
+        {/* Featured Products */}
+        <div className="content-container">
+          <ul className="flex flex-col gap-x-6">
+            <FeaturedProducts collections={collections} region={region} />
+          </ul>
+        </div>
       </div>
     </>
   )
