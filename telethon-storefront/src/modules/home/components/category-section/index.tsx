@@ -14,7 +14,9 @@ export default function CategorySection({ category, region }: CategorySectionPro
     <div className="mb-16" data-testid="category-section">
       {/* Category Header */}
       <div className="mb-8">
-        <h3 className="text-2xl-semi text-ui-fg-base mb-2">{category.name}</h3>
+        <h3 className="text-2xl-semi text-ui-fg-base mb-2">
+          {category.name} ({products.length} products)
+        </h3>
         <div className="w-full h-px bg-ui-border-base"></div>
       </div>
 
@@ -22,7 +24,7 @@ export default function CategorySection({ category, region }: CategorySectionPro
       {products.length > 0 ? (
         <>
           <div className="grid grid-cols-1 small:grid-cols-2 medium:grid-cols-3 large:grid-cols-4 gap-6">
-            {products.slice(0, 8).map((product) => {
+            {products.map((product) => {
               return (
                 <ProductPreview
                   key={product.id}
