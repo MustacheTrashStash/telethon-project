@@ -76,18 +76,31 @@ module.exports = defineConfig({
       resolve: "@medusajs/medusa/file",
       options: {
         providers: [
-          {
-            resolve: "@medusajs/medusa/file-s3",
-            id: "s3",
-            options: {
-              file_url: process.env.SPACE_URL,
-              access_key_id: process.env.SPACE_ACCESS_KEY_ID,
-              secret_access_key: process.env.SPACE_SECRET_ACCESS_KEY,
-              region: process.env.SPACE_REGION,
-              bucket: process.env.SPACE_BUCKET,
-              endpoint: process.env.SPACE_ENDPOINT,
+          // Production: Use DigitalOcean Spaces
+          ...(process.env.NODE_ENV === 'production' ? [
+            {
+              resolve: "@medusajs/medusa/file-s3",
+              id: "s3",
+              options: {
+                file_url: process.env.SPACE_URL,
+                access_key_id: process.env.SPACE_ACCESS_KEY_ID,
+                secret_access_key: process.env.SPACE_SECRET_ACCESS_KEY,
+                region: process.env.SPACE_REGION,
+                bucket: process.env.SPACE_BUCKET,
+                endpoint: process.env.SPACE_ENDPOINT,
+              },
             },
-          },
+          ] : [
+            // Development: Use local file storage
+            {
+              resolve: "@medusajs/file-local",
+              id: "local",
+              options: {
+                upload_dir: "static",
+                base_url: "http://localhost:9000/static",
+              },
+            },
+          ]),
         ],
       },
     },
