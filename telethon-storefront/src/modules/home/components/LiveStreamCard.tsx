@@ -53,7 +53,7 @@ const LiveStreamCard = () => {
           background: "#ffffff",
           padding: "5px 12px",
           color: "#000000",
-          borderBottom: "3px solid #000000",
+          // borderBottom: "3px solid #000000",
         }}
       >
         Live Stream

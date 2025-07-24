@@ -4,7 +4,7 @@
 
 /* Set body background to black to match footer */
 body {
-  background-color: #000;
+  background-color: #fff;
 }
 
 @layer utilities {
@@ -114,4 +114,46 @@ body {
   .text-3xl-semi {
     @apply text-[32px] leading-[44px] font-semibold;
   }
+}
+
+.button {
+  padding: 10px 20px;
+  width: 150px;
+  color: white;
+  border: 1.5px solid #ffaa34;
+  box-shadow: 3px 3px 0 #000;
+  font-weight: 750;
+  background: #FDBB5C;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+button:active {
+  box-shadow: 0px 0px 0 #AD283822;
+  transition: 0.1s;
+}
+
+.header {
+  image-rendering: pixelated;
+  /* background: linear-gradient(90deg,#642165, white); */
+  /* background: url(/header_hatching.png); */
+  background: #FDBB5C;
+  background-size: cover;
+}
+
+.logo {
+  scale: 1.6;
+  translate: 0 10px;
+}
+
+.schedule {
+  border: 1px solid white;
+  margin: 0 auto;
+}
+tr {
+  border: 1px solid white;
+  /* margin: 5px; */
+}
+td {
+  padding: 0.5em;
+  text-align: left;
 }
