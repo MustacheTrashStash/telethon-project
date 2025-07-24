@@ -78,7 +78,9 @@ module.exports = defineConfig({
       resolve: "@medusajs/file-local",
       options: {
         upload_dir: "static",
-        base_url: process.env.MEDUSA_BACKEND_URL ? `${process.env.MEDUSA_BACKEND_URL}/static` : "http://localhost:9000/static",
+        base_url: process.env.NODE_ENV === 'production' 
+          ? "https://telethon-project-szqc7.ondigitalocean.app/static" 
+          : "http://localhost:9000/static",
       },
     },
   ],
