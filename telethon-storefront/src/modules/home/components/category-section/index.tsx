@@ -39,12 +39,7 @@ export default function CategorySection({ category, region }: CategorySectionPro
               })}
             </div>
             
-            {/* Scroll Indicator - only show if more than 4 items */}
-            {products.length > 4 && (
-              <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent pointer-events-none flex items-center justify-end pr-2">
-                <div className="text-ui-fg-subtle text-xs">→</div>
-              </div>
-            )}
+            {/* Scroll Indicator removed as per user request */}
           </div>
 
           {/* View All Link */}
