@@ -13,7 +13,7 @@ const StoreTemplate = async ({
 }) => {
   const region = await getRegion(countryCode)
   const categories = await listCategories({
-    fields: "id, handle, name, products",
+    fields: "id, handle, name, products.*",
   })
 
   if (!region) {

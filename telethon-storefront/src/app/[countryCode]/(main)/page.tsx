@@ -27,7 +27,7 @@ export default async function Home(props: {
   })
 
   const categories = await listCategories({
-    fields: "id, handle, name, products",
+    fields: "id, handle, name, products.*",
   })
 
   if (!collections || !region) {
