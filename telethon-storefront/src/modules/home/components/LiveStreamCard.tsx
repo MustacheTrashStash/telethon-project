@@ -32,8 +32,7 @@ const LiveStreamCard = () => {
       className="card"
       style={{
         fontFamily: "Montserrat, sans-serif",
-        width: "300px",
-        height: "250px",
+        width: "50em",
         translate: "-6px -6px",
         background: "#883377",
         border: "3px solid #000000",
@@ -60,9 +59,13 @@ const LiveStreamCard = () => {
       </div>
       <div
         className="content"
-        style={{ padding: "8px 12px", fontSize: "14px", fontWeight: "600" }}
+        style={{ padding: "0px 0px", fontSize: "14px", fontWeight: "600" }}
       >
-        <p>Watch our live embedded stream here!</p>
+        <iframe style={{
+          margin:0,
+          width:"100%",
+          height:"30em"
+        }} src="https://www.youtube.com/embed/s7nOhdDJzp8?si=v0etiXPcJAaiD6m0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
       </div>
     </div>

@@ -3,6 +3,7 @@
 import { FolderOpen, Github } from "@medusajs/icons";
 import { Button, Heading } from "@medusajs/ui";
 import LiveStreamCard from "../LiveStreamCard";
+import LocalizedClientLink from "@modules/common/components/localized-client-link";
 
 const Hero = () => {
   return (
@@ -26,13 +27,14 @@ const Hero = () => {
             Saturday, July 26 at 6 p.m.
           </p>
         </div>
-        <div className="grid grid-cols-2 gap-4 mt-4 items-center justify-center">
+        <div className="flex items-center justify-center flex-col gap-5">
           <div className="flex justify-center">
             <LiveStreamCard />
           </div>
           <div>
             <div className="flex gap-4 mt-2 justify-start">
-              <button
+              <LocalizedClientLink
+                href="/donate"
                 className="button"
               // style={{
               //   padding: "10px 20px",
@@ -46,8 +48,9 @@ const Hero = () => {
               // }}
               >
                 Donate
-              </button>
-              <button
+              </LocalizedClientLink>
+              <LocalizedClientLink
+                href="/store"
                 className="button"
               // style={{
               //   padding: "10px 20px",
@@ -61,7 +64,7 @@ const Hero = () => {
               // }}
               >
                 Store
-              </button>
+              </LocalizedClientLink>
             </div>
           </div>
         </div>
@@ -120,11 +123,7 @@ const Hero = () => {
                 <td>Introduction to the Telethon</td>
               </tr>
               <tr>
-                <td>7:00pm</td>
-                <td>Cino the Singer</td>
-              </tr>
-              <tr>
-                <td>7:35 pm</td>
+                <td>7:00 pm</td>
                 <td>Death to Intelligent Dance Music</td>
               </tr>
               <tr>

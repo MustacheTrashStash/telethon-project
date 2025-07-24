@@ -14,8 +14,13 @@ export default async function Nav() {
       <header className="relative h-16 mx-auto border-b duration-200 border-ui-border-base header">
         <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular">
           <div className="flex-1 basis-0 h-full flex items-center">
-            <div className="h-full">
-              <SideMenu regions={regions} />
+            <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-start">
+              {/* <SideMenu regions={regions} /> */}
+              <LocalizedClientLink
+              href="/store"
+              className="hover:text-ui-fg-base flex gap-2 text-l"
+              data-testid="nav-store-link"
+              >Store</LocalizedClientLink>
             </div>
           </div>
 
