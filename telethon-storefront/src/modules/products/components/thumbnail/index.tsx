@@ -1,3 +1,4 @@
+"use client"
 import { Container, clx } from "@medusajs/ui"
 import Image from "next/image"
 import React from "react"
@@ -25,6 +26,8 @@ const ImageOrPlaceholder = ({ image, size, filter }: ImageOrPlaceholderProps) =>
       alt="Thumbnail"
       className="absolute inset-0 object-cover object-center !rounded-none"
       draggable={false}
+      unselectable="on"
+      onDragStart={e => e.preventDefault()}
       quality={50}
       sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
       fill

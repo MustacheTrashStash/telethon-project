@@ -1,3 +1,6 @@
+"use client"
+
+import React from "react"
 import { HttpTypes } from "@medusajs/types"
 import ProductPreview from "@modules/products/components/product-preview"
 
@@ -9,7 +12,8 @@ type CategorySectionProps = {
 export default function CategorySection({ category, region }: CategorySectionProps) {
   const products = category.products || []
 
-  // Always show the category header, even if no products
+
+
   return (
     <div className="mb-16" data-testid="category-section">
       {/* Category Header */}
@@ -23,36 +27,45 @@ export default function CategorySection({ category, region }: CategorySectionPro
       {/* Products Horizontal Scroll or No Products Message */}
       {products.length > 0 ? (
         <>
-          {/* Horizontal Scrolling Container */}
+
+          {/* Horizontal Scrolling Container with default scrollbar */}
           <div className="relative">
-            <div className="flex overflow-x-auto no-scrollbar gap-4 pb-4 -mx-4 px-4 scroll-smooth">
-              {products.map((product) => {
-                return (
-                  <div key={product.id} className="flex-none w-64 sm:w-72">
-                    <ProductPreview
-                      product={product}
-                      region={region}
-                      isFeatured
-                    />
-                  </div>
-                )
-              })}
+            {/* Custom scrollbar styles for this row */}
+            <style>{`
+              .category-scrollbar::-webkit-scrollbar {
+                height: 18px;
+              }
+              .category-scrollbar::-webkit-scrollbar-thumb {
+                background: #642165;
+                border-radius: 12px;
+              }
+              .category-scrollbar::-webkit-scrollbar-track {
+                background: #f3e8ff;
+                border-radius: 12px;
+              }
+              /* Firefox */
+              .category-scrollbar {
+                scrollbar-color: #642165 #f3e8ff;
+                scrollbar-width: auto;
+              }
+            `}</style>
+            <div
+              className="category-scrollbar flex overflow-x-auto gap-4 pb-4 -mx-4 px-4 scroll-smooth"
+              style={{ minHeight: '1px' }}
+            >
+              {products.map((product) => (
+                <div key={product.id} className="flex-none w-64 sm:w-72">
+                  <ProductPreview
+                    product={product}
+                    region={region}
+                    isFeatured
+                  />
+                </div>
+              ))}
             </div>
-            
-            {/* Scroll Indicator removed as per user request */}
           </div>
 
-          {/* View All Link */}
-          {products.length > 6 && (
-            <div className="mt-4 text-center">
-              <a
-                href={`/categories/${category.handle}`}
-                className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover text-sm"
-              >
-                View all {category.name} products ({products.length})
-              </a>
-            </div>
-          )}
+          {/* View All Link removed as per user request */}
         </>
       ) : (
         <div className="text-center py-8">
