@@ -7,7 +7,7 @@ const montserrat = Montserrat({ weight: "400", subsets: ["latin"] })
 const DonateButton = () => {
   return (
     <a
-      href="https://cctv.org/donate"
+      href="https://cctv.app.neoncrm.com/campaigns/telethon"
       target="_blank"
       className={`w-full sm:w-auto inline-block ${montserrat.className}`}
       style={{

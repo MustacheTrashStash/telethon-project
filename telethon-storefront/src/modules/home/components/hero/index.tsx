@@ -33,38 +33,20 @@ const Hero = () => {
           </div>
           <div>
             <div className="flex gap-4 mt-2 justify-start">
-              <LocalizedClientLink
-                href="/donate"
-                className="button"
-              // style={{
-              //   padding: "10px 20px",
-              //   width: "150px",
-              //   border: "2px solid #FFE0B2",
-              //   boxShadow: "3px 3px 0 #00000022",
-              //   fontWeight: "750",
-              //   background: "#1DA29A",
-              //   transition: "all 0.3s ease",
-              //   cursor: "pointer",
-              // }}
-              >
-                Donate
-              </LocalizedClientLink>
-              <LocalizedClientLink
-                href="/store"
-                className="button"
-              // style={{
-              //   padding: "10px 20px",
-              //   width: "150px",
-              //   // border: "3px solid #000000",
-              //   boxShadow: "3px 3px 0 #00000022",
-              //   fontWeight: "750",
-              //   background: "#1DA29A",
-              //   transition: "all 0.3s ease",
-              //   cursor: "pointer",
-              // }}
-              >
-                Store
-              </LocalizedClientLink>
+                    <a
+                      href="https://cctv.app.neoncrm.com/campaigns/telethon"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="button"
+                    >
+                      Donate
+                    </a>
+                    <LocalizedClientLink
+                      href="/store"
+                      className="button"
+                    >
+                      Store
+                    </LocalizedClientLink>
             </div>
           </div>
         </div>
