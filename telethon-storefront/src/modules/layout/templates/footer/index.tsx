@@ -31,9 +31,9 @@ export default function Footer() {
             <div className="font-semibold mb-1">Connect</div>
             <div className="flex gap-x-4">
               {/* Social icons can be added here */}
-              <a href="https://www.facebook.com/cctvbtv" target="_blank" rel="noopener" aria-label="Facebook" className="hover:text-orange-400">FB</a>
+              <a href="https://www.facebook.com/TOWNMEETINGTV/" target="_blank" rel="noopener" aria-label="Facebook" className="hover:text-orange-400">FB</a>
               <a href="https://twitter.com/cctvbtv" target="_blank" rel="noopener" aria-label="Twitter" className="hover:text-orange-400">TW</a>
-              <a href="https://www.youtube.com/user/cctvbtv" target="_blank" rel="noopener" aria-label="YouTube" className="hover:text-orange-400">YT</a>
+              <a href="https://www.youtube.com/channel/UCJkWMLSqRNKLoyUZQiNoAcQ" target="_blank" rel="noopener" aria-label="YouTube" className="hover:text-orange-400">YT</a>
             </div>
             <div className="text-xs text-gray-400 mt-2">Accessibility | Privacy Policy</div>
           </div>
