@@ -52,6 +52,14 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
 }) => {
   const initialImage = thumbnail || images?.[0]?.url;
   const isSoldOut = typeof inventory === 'number' && inventory <= 0;
+  // If used in cart preview, remove all card styling and just show the image
+  if (className && className.includes('cart-preview-thumbnail')) {
+    return (
+      <div className="relative w-full h-full">
+        <ImageOrPlaceholder image={initialImage} size={size} filter={isSoldOut ? 'grayscale(1) brightness(0.4)' : undefined} />
+      </div>
+    );
+  }
   return (
     <Container
       className={clx(

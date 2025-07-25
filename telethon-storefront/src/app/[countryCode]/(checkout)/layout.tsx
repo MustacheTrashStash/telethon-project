@@ -9,7 +9,7 @@ export default function CheckoutLayout({
 }) {
   return (
     <div className="w-full bg-white relative small:min-h-screen">
-      <div className="h-16 bg-white border-b ">
+      <div className="h-16 border-b " style={{ background: '#FDBB5C' }}>
         <nav className="flex h-full items-center content-container justify-between">
           <LocalizedClientLink
             href="/cart"
@@ -29,7 +29,12 @@ export default function CheckoutLayout({
             className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
             data-testid="store-link"
           >
-            Medusa Store
+            <img
+              src="/CCTV telethon Logo.png"
+              alt="CCTV Telethon Logo"
+              className="h-10 logo"
+              style={{ maxHeight: '2.5rem', objectFit: 'contain' }}
+            />
           </LocalizedClientLink>
           <div className="flex-1 basis-0" />
         </nav>
