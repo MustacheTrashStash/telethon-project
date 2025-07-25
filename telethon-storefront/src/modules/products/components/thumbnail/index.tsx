@@ -104,7 +104,7 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
               textDecoration: isSoldOut ? 'line-through' : 'none',
             }}
           >
-            <span style={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1, textAlign: 'left', paddingRight: 8}}>{name || 'Item Name'}</span>
+            <span style={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1, textAlign: 'left', paddingRight: 8}}>{isSoldOut ? 'Sold Out' : (name || 'Item Name')}</span>
             <span style={{
               color: isSoldOut ? '#d32f2f' : '#1DA29A',
               fontWeight: 700,

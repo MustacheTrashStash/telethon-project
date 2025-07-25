@@ -38,11 +38,10 @@ export default function ProductPreview({
             images={product.images}
             size="full"
             isFeatured={isFeatured}
-            name={product.title}
+            name={isSoldOut ? 'Sold Out' : product.title}
             inventory={isSoldOut ? 0 : 1}
           />
         </div>
-
       </div>
     </LocalizedClientLink>
   )
