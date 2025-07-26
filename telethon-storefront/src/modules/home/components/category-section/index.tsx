@@ -10,7 +10,15 @@ type CategorySectionProps = {
 }
 
 export default function CategorySection({ category, region }: CategorySectionProps) {
-  const products = category.products || []
+  // Remove products that are drafts
+  const products = (category.products || []).filter((product) => {
+    if (product.status && product.status.toLowerCase() === 'draft') {
+      // eslint-disable-next-line no-console
+      console.log('Filtering out draft product:', { id: product.id, title: product.title });
+      return false;
+    }
+    return true;
+  });
 
 
 
