@@ -10,15 +10,22 @@ type CategorySectionProps = {
 }
 
 export default function CategorySection({ category, region }: CategorySectionProps) {
-  // Remove products that are drafts
-  const products = (category.products || []).filter((product) => {
+  // Show all products, but mark drafts as sold out
+  const products = category.products || [];
+
+  // Helper to determine if a product is sold out or drafted
+  const isProductSoldOutOrDraft = (product: any) => {
     if (product.status && product.status.toLowerCase() === 'draft') {
-      // eslint-disable-next-line no-console
-      console.log('Filtering out draft product:', { id: product.id, title: product.title });
-      return false;
+      return true;
     }
-    return true;
-  });
+    const allVariants = product.variants || [];
+    return allVariants.length > 0 && allVariants.every(
+      (v: any) =>
+        v.manage_inventory !== false &&
+        v.allow_backorder !== true &&
+        (typeof v.inventory_quantity !== 'number' || v.inventory_quantity <= 0)
+    );
+  };
 
 
 
@@ -61,15 +68,21 @@ export default function CategorySection({ category, region }: CategorySectionPro
               className="category-scrollbar flex overflow-x-auto gap-4 pb-4 -mx-4 px-4 scroll-smooth"
               style={{ minHeight: '1px' }}
             >
-              {products.map((product) => (
-                <div key={product.id} className="flex-none w-64 sm:w-72">
-                  <ProductPreview
-                    product={product}
-                    region={region}
-                    isFeatured
-                  />
-                </div>
-              ))}
+              {products.map((product) => {
+                const soldOutOrDraft = isProductSoldOutOrDraft(product);
+                return (
+                  <div
+                    key={product.id}
+                    className={`flex-none w-64 sm:w-72 ${soldOutOrDraft ? 'opacity-50 pointer-events-none grayscale' : ''}`}
+                  >
+                    <ProductPreview
+                      product={{ ...product, title: soldOutOrDraft ? 'SOLD OUT' : product.title }}
+                      region={region}
+                      isFeatured
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
 
