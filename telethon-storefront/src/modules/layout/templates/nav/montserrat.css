@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
+.montserrat-semibold {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: #fff;
+  font-size: 1.15rem;
+}

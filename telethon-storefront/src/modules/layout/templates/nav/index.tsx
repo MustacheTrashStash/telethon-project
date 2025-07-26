@@ -1,3 +1,5 @@
+
+import "./montserrat.css"
 import { Suspense } from "react"
 
 import { listRegions } from "@lib/data/regions"
@@ -17,9 +19,9 @@ export default async function Nav() {
             <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-start">
               {/* <SideMenu regions={regions} /> */}
               <LocalizedClientLink
-              href="/store"
-              className="hover:text-ui-fg-base flex gap-2 text-l"
-              data-testid="nav-store-link"
+                href="/store"
+                className="montserrat-semibold hover:text-ui-fg-base flex gap-2 text-l"
+                data-testid="nav-store-link"
               >Store</LocalizedClientLink>
             </div>
           </div>
@@ -38,14 +40,14 @@ export default async function Nav() {
             </LocalizedClientLink>
           </div>
 
-          <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
+          <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end montserrat-semibold">
             <div className="hidden small:flex items-center gap-x-6 h-full">
               {/* Account functionality removed */}
             </div>
             <Suspense
               fallback={
                 <LocalizedClientLink
-                  className="hover:text-ui-fg-base flex gap-2"
+                  className="montserrat-semibold hover:text-ui-fg-base flex gap-2"
                   href="/cart"
                   data-testid="nav-cart-link"
                 >

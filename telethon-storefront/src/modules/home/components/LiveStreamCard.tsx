@@ -45,8 +45,8 @@ const LiveStreamCard = () => {
         className="head"
         style={{
           fontFamily: "Montserrat, sans-serif",
-          fontSize: "14px",
-          fontWeight: "900",
+          fontSize: "18px", // slightly larger
+          fontWeight: 700, // bold
           width: "100%",
           height: "32px",
           background: "#ffffff",
